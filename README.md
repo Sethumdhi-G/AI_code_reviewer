@@ -1,4 +1,4 @@
-# 🔍 AI Code Reviewer
+#  AI Code Reviewer
 
 An AI-powered code review tool built with **Python**, **Flask**, and the **Anthropic Claude API**. Paste any code snippet and get instant structured feedback on bugs, quality, performance, security, and improvements.
 
@@ -8,55 +8,17 @@ An AI-powered code review tool built with **Python**, **Flask**, and the **Anthr
 
 ---
 
-## ✨ Features
+## Features
 
-- 🐛 **Bug Detection** — Catches logic errors and potential runtime issues
-- 📐 **Code Quality** — Reviews naming, structure, readability, and style
-- ⚡ **Performance** — Flags inefficiencies and suggests improvements
-- 🔒 **Security** — Detects vulnerabilities like SQL injection or hardcoded secrets
-- 🌐 **Multi-language** — Supports Python, Java, JavaScript, TypeScript, Go, Rust, SQL, Bash, C++
-- 🎯 **Scored Review** — Each review ends with a 1–10 score and explanation
-
----
-
-## 🚀 Getting Started
-
-### 1. Clone the repository
-```bash
-git clone https://github.com/YOUR_USERNAME/ai-code-reviewer.git
-cd ai-code-reviewer
-```
-
-### 2. Create a virtual environment
-```bash
-python -m venv venv
-source venv/bin/activate        # macOS/Linux
-venv\Scripts\activate           # Windows
-```
-
-### 3. Install dependencies
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Set up your API key
-```bash
-cp .env.example .env
-# Open .env and add your Anthropic API key
-```
-
-Get your free API key at: https://console.anthropic.com
-
-### 5. Run the app
-```bash
-python app.py
-```
-
-Open your browser at `http://localhost:5000`
+- **Bug Detection** — Identify logic errors and potential runtime issues
+- **Code Quality** — Reviews naming, structure, readability
+- **Performance** — Comments on inefficiencies and suggests improvements
+- **Multi-language** — Supports Python, Java, JavaScript, TypeScript, Go, Rust, SQL, Bash, C++
+- **Scored Review** — Each review ends with a 1–10 score and explanation
 
 ---
 
-## 🗂️ Project Structure
+## Project Structure
 
 ```
 ai-code-reviewer/
@@ -71,7 +33,7 @@ ai-code-reviewer/
 
 ---
 
-## 🧠 How It Works
+##  How It Works
 
 1. User pastes code and selects a language (or uses auto-detect)
 2. The Flask backend sends the code to Claude via the Anthropic API
@@ -80,7 +42,7 @@ ai-code-reviewer/
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer    | Technology         |
 |----------|--------------------|
@@ -91,7 +53,46 @@ ai-code-reviewer/
 
 ---
 
-## 📦 Deployment
+# How to Run Locally
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/YOUR_USERNAME/ai-code-reviewer.git
+cd ai-code-reviewer
+```
+
+### 2. Create a virtual environment
+```bash
+python -m venv venv
+source venv/bin/activate        # Mac/Linux
+venv\Scripts\activate           # Windows
+```
+
+### 3. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Set up environment variables
+```bash
+cp .env.example .env
+```
+Open `.env` and add your Anthropic API key:
+```
+ANTHROPIC_API_KEY=your_api_key_here
+```
+Get your free API key at: https://console.anthropic.com
+
+### 5. Run the app
+```bash
+python app.py
+```
+Open your browser at **http://localhost:5000**
+
+---
+
+
+## Deployment
 
 You can deploy this for free on **Render**:
 
