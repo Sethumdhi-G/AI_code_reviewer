@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>AI Code Reviewer</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet"/>
 <style>
@@ -454,16 +453,34 @@
   }
 
   function renderMarkdown(text) {
-    return text
-      .replace(/^## (.+)$/gm, '<h2>$1</h2>')
-      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-      .replace(/`([^`]+)`/g, '<code>$1</code>')
-      .replace(/```[\w]*\n([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
-      .replace(/^\s*[-*]\s(.+)$/gm, '<li>$1</li>')
-      .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
-      .replace(/(?<!<\/h2>|<\/li>|<\/pre>)\n(.+)/g, '<p>$1</p>')
-      .replace(/\n/g, '');
-  }
+  // 1. Fenced code blocks FIRST (before inline code corrupts them)
+  text = text.replace(/```[\w]*\n([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+
+  // 2. Headings
+  text = text.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+
+  // 3. Bold
+  text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+
+  // 4. Inline code (after blocks)
+  text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+  // 5. List items
+  text = text.replace(/^\s*[-*]\s(.+)$/gm, '<li>$1</li>');
+
+  // 6. Wrap consecutive <li> tags in <ul>
+  text = text.replace(/(<li>[\s\S]*?<\/li>(\n<li>[\s\S]*?<\/li>)*)/g, '<ul>$1</ul>');
+
+  // 7. Score line — apply badge styling
+  text = text.replace(/(<h2>Score<\/h2>)\s*\n([\s\S]*?)(?=<h2>|$)/g, (match, heading, content) => {
+    return heading + `<div class="score-badge">${content.trim()}</div>`;
+  });
+
+  // 8. Remaining plain lines become paragraphs (skip already-tagged lines)
+  text = text.replace(/^(?!<[a-z]).+$/gm, line => `<p>${line}</p>`);
+
+  return text;
+}
 </script>
 </body>
 </html>
